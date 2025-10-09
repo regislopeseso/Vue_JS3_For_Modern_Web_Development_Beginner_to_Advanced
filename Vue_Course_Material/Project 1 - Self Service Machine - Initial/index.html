@@ -15,14 +15,19 @@
         
         <main id="app">
             
-            <section v-for="product in products" class="items" >
-                <h4>Pick Your Items</h4>
-                <div class="product">
+            <section class="items">
+                <h4> Pick Your Items </h4>
+                <div 
+                    class="product"    
+                    v-for="product in products"
+                    @click="product.active = !product.active"
+                    :class="{ selected : product.active }"
+                >
                     <div class="photo">
                         <img :src="product.photo">
                     </div>
                     <div class="description">
-                        <span class="name">{{product.name}}</span>
+                        <span class="name">{{ product.name }}</span>
                         <span class="price">{{ products.price }}</span>
                         <div class="quantity-area">
                             <button>-</button>
@@ -30,7 +35,7 @@
                             <button>+</button>
                         </div>
                     </div>
-                </div>            
+                </div>               
             </section>
 
             <section class="summary">
