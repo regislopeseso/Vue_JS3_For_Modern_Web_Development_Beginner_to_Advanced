@@ -34,7 +34,7 @@ const toDosApp = {
         alert("Describe what you have to do then add it to the list.  ")
       } else {
         this.toDos.push(this.newToDo)
-        this.newToDo = {}
+        localStorage.setItem("toDos", JSON.stringify(this.toDos))
       }
 
     }
