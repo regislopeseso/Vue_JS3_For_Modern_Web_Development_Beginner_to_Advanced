@@ -39,8 +39,11 @@ const toDosApp = {
 
     }
   },
-  beforeCreate() {
-    this.toDos = localStorage.getItem(toDos);
+  created() {
+    if(localStorage.getItem("toDos"))
+    {
+      this.toDos =  JSON.parse(localStorage.getItem("toDos"));
+    }
   }
 }
 
