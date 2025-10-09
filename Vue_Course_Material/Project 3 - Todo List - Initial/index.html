@@ -22,18 +22,18 @@
                 <div class="all-todos">
                     <div 
                         class="single-todo" 
-                        v-for="item in toDos" 
-                        @click="item.finished = !item.finished"
-                        :class="{done : item.finished}"
+                        v-for="(item, index) in toDos" 
+                        @click="item.done = !item.done"
+                        :class="{done : item.done}"
                     >
-                        <p>{{item.task}}</p>
+                        <p>{{index + 1}} - {{item.text}}</p>
                     </div>
                 </div>
 
                 <button class="clear" @click="clearAll()">Clear All</button>
 
-                <input type="text" placeholder="Add new to-do" v-model="newToDo.task">
-                <button class="add" @click="addTask()">Add</button>
+                <input type="text" placeholder="Add new to-do" v-model="newToDo.text">
+                <button class="add" @click="addtext()">Add</button>
 
                 <div class="instructions">
                     Instructions:

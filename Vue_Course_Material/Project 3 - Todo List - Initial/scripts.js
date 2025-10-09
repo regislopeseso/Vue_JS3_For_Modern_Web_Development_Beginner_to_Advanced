@@ -1,15 +1,15 @@
 toDos = [
   {
-    "task": "Learn HTML, CSS and Javascript",
-    "finished": false,
+    "text": "Learn HTML, CSS and Javascript",
+    "done": false,
   },
   {
-    "task": "Learn the basics of Vue JS",
-    "finished": false,
+    "text": "Learn the basics of Vue JS",
+    "done": false,
   },
   {
-    "task": "Complete Vue JS Challenge with excellence",
-    "finished": false,
+    "text": "Complete Vue JS Challenge with excellence",
+    "done": false,
   }
 ];
 
@@ -18,8 +18,8 @@ const toDosApp = {
     return {
       toDos: window.toDos,
       newToDo: {
-        task: null,
-        finished: false
+        text: null,
+        done: false
       }
     }
   },
@@ -29,8 +29,8 @@ const toDosApp = {
       
     },
 
-    addTask : function() {
-      if(!this.newToDo.task){
+    addtext : function() {
+      if(!this.newToDo.text || this.newToDo.text.trim() === ""){
         alert("Describe what you have to do then add it to the list.  ")
       } else {
         this.toDos.push(this.newToDo)
