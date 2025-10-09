@@ -23,17 +23,17 @@
                     <div 
                         class="single-todo" 
                         v-for="(item, index) in toDos" 
-                        @click="item.done = !item.done"
+                        @click="item.done = !item.done; storeToDos()"
                         :class="{done : item.done}"
                     >
                         <p>{{index + 1}} : {{item.text}}</p>
                     </div>
                 </div>
 
-                <button class="clear" @click="toDos=[]" v-if="toDos.length">Clear All</button>
+                <button class="clear" @click="toDos = [], storeToDos()" v-if="toDos.length">Clear All</button>
 
                 <input type="text" placeholder="Add new to-do" v-model="newToDo.text">
-                <button class="add" @click="addtext()">Add</button>
+                <button class="add" @click="addtext(); storeToDos()">Add</button>
 
                 <div class="instructions">
                     Instructions:

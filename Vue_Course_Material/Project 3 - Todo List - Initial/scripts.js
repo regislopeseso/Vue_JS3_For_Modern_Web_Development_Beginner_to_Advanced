@@ -23,20 +23,21 @@ const toDosApp = {
       }
     }
   },
-  methods: {
-    clearAll : function() {
-      this.toDos = []  
-      
-    },
-
+  methods: {   
     addtext : function() {
       if(!this.newToDo.text || this.newToDo.text.trim() === ""){
         alert("Describe what you have to do then add it to the list.  ")
-      } else {
-        this.toDos.push(this.newToDo)
-        localStorage.setItem("toDos", JSON.stringify(this.toDos))
-      }
+        return;
+      } 
+      
+      this.toDos.push(this.newToDo)
 
+      localStorage.setItem("toDos", JSON.stringify(this.toDos))
+
+      this.newToDo = {}
+    },
+    storeToDos(){
+      localStorage.setItem("toDos", JSON.stringify(this.toDos))
     }
   },
   created() {
@@ -44,6 +45,9 @@ const toDosApp = {
     {
       this.toDos =  JSON.parse(localStorage.getItem("toDos"));
     }
+  }, 
+  updated() {
+    
   }
 }
 
