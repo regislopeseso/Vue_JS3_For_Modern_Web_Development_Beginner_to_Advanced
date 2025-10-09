@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <button class="clear" @click="clearAll()">Clear All</button>
+                <button class="clear" @click="toDos=[]" v-if="toDos.length">Clear All</button>
 
                 <input type="text" placeholder="Add new to-do" v-model="newToDo.text">
                 <button class="add" @click="addtext()">Add</button>
