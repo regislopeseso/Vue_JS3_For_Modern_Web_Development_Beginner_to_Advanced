@@ -63,4 +63,14 @@ var products = [
         "quantity": 1
     }
 ];
+
+const SelfServiceMachine = {
+    data() {
+        return {
+            message: "Hello World"
+        }
+    }
+};
+
+Vue.createApp(SelfServiceMachine).mount("#app");
  
