@@ -82,6 +82,14 @@ const SelfServiceMachine = {
             })
 
             return totalSum.toFixed(2);
+        },
+        selectComponent: function(index) {
+            this.products[index].active = !this.products[index].active;
+
+            if(this.products[index].active == false)
+            {
+                this.products[index].quantity = 1;
+            }
         }
     }
 };

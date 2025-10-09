@@ -18,8 +18,9 @@
                 <h4> Pick Your Items </h4>
                 <div 
                     class="product"    
-                    v-for="product in products"
-                    @click="product.active = !product.active"
+                    v-for="(product, index) in products"
+                    :key="index"                    
+                    @click=" selectComponent(index) "
                     :class="{ selected : product.active }"
                 >
                     <div class="photo">
