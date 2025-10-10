@@ -33,12 +33,12 @@ export default {
     answers() {
       var answers = [...this.incorrectAnswers];
 
-      answers.push(this.correctAnswer);
+      answers.splice(Math.round(Math.random() * answers.length), 0, this.correctAnswer);
 
       return answers;
     }
   },
-  created() {
+  created() { 
     this.axios
       .get('https://opentdb.com/api.php?amount=10&category=18&type=boolean')
       .then((response) => {
