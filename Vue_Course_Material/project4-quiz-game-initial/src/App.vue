@@ -5,19 +5,42 @@
       
       <template v-for="(answer, index) in answers" :key="index">
         <input 
+          :disabled="answerSubmitted"
           type="radio" 
           name="options" 
           :value="answer"
-          v-model="chosen_answer">
+          v-model="chosenAnswer">
         <label v-html="answer"></label><br>
       </template>    
   
       <button 
         class="send" 
         type="button"
-        @click="submitAnswer()">
+        @click="submitAnswer()"
+        v-if="!answerSubmitted"
+      >
           Send
-      </button>    
+      </button>   
+
+      <section 
+        class="result" 
+        v-if="answerSubmitted"
+      >
+        <h4 v-if="chosenAnswer == correctAnswer">
+          &#9989; {{ correctAnswer }} is correct!
+        </h4>
+
+        <h4 v-else>
+          &#10060; I'm sorry, you piced the wrong answer. 
+        </h4>
+
+        <button 
+          class="send" 
+          type="button"
+        >
+          Next Question
+        </button>
+      </section>
     </template>
   </div>
 </template>
@@ -35,7 +58,8 @@ export default {
       question: null,
       correctAnswer: null,
       incorrectAnswers: null,
-      chosen_answer: null,
+      chosenAnswer: null,
+      answerSubmitted: false,
     }
   },
   computed: {
@@ -49,16 +73,20 @@ export default {
   },
   methods: {
     submitAnswer() {
-      if(!this.chosen_answer) {
-        alert("Pick one of the options!")        
-      } else{
-        if(this.chosen_answer == this.correctAnswer)
-        {
-          alert("You nailed it!") 
-        } else {
-          alert("MISS")
-        }
+      if(!this.chosenAnswer) {
+        console.log("Pick one of the options!")
+        return;
       }
+
+      this.answerSubmitted = true;
+
+      if(this.chosenAnswer == this.correctAnswer)
+      {
+        console.log("You nailed it!") 
+        return;
+      } 
+
+      alert("MISS")
     }
 
   },
@@ -73,6 +101,7 @@ export default {
         this.incorrectAnswers = resp.incorrect_answers;
       })
   }
+
 }
 </script>
 
