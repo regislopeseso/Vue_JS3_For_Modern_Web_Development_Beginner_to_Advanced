@@ -29,13 +29,24 @@ export default {
       incorrectAnswers: null,
     }
   },
+  computed: {
+    answers() {
+      var answers = [...this.incorrectAnswers];
+
+      answers.push(this.correctAnswer);
+
+      return answers;
+    }
+  },
   created() {
     this.axios
       .get('https://opentdb.com/api.php?amount=10&category=18&type=boolean')
       .then((response) => {
-        this.question = response.data.results[0].question
-        this.correctAnswer = response.data.results[0].correct_answer
-        this.incorrectAnswers = response.data.results[0].incorrect_answer
+        var resp = response.data.results[0];
+
+        this.question = resp.question;
+        this.correctAnswer = resp.correct_answer;
+        this.incorrectAnswers = resp.incorrect_answers;
       })
   }
 }
