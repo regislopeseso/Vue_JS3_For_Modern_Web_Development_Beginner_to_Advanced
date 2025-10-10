@@ -26,17 +26,25 @@
         class="result" 
         v-if="answerSubmitted"
       >
-        <h4 v-if="chosenAnswer == correctAnswer">
-          &#9989; {{ correctAnswer }} is correct!
+        <h4 
+          v-if="chosenAnswer == correctAnswer"
+          v-html="'&#9989;' +  correctAnswer + 'is correct!' "
+        >
+          
         </h4>
 
-        <h4 v-else>
-          &#10060; I'm sorry, you piced the wrong answer. 
+        <h4 
+          v-else
+          v-html="'&#10060; I am sorry, you picked the wrong answer.'"  
+        >
+          
         </h4>
 
         <button 
           class="send" 
           type="button"
+          @click="getNewQuestion()"
+
         >
           Next Question
         </button>
@@ -87,11 +95,15 @@ export default {
       } 
 
       alert("MISS")
-    }
+    },
 
-  },
-  created() { 
-    this.axios
+    getNewQuestion() {
+      this.answerSubmitted = false;
+      this.chosenAnswer = null;
+      this.question = null;
+
+
+       this.axios
       .get('https://opentdb.com/api.php?amount=10&category=30&type=multiple')
       .then((response) => {
         var resp = response.data.results[0];
@@ -100,6 +112,11 @@ export default {
         this.correctAnswer = resp.correct_answer;
         this.incorrectAnswers = resp.incorrect_answers;
       })
+    },
+
+  },
+  created() { 
+    this.getNewQuestion()
   }
 
 }
