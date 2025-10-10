@@ -1,16 +1,16 @@
-<template>
+<template v-if="question">
   <div>
-    <h1 v-html="question">
+      <h1 v-html="question"></h1>
       
-    </h1>
-
-    <input type="radio" name="options" value="True">
-    <label>True</label><br>
-    
-    <input type="radio" name="options" value="False">
-    <label>False</label><br>
-
-    <button class="send" type="button">Send</button>
+      <template v-for="(answer, index) in answers" :key="index">
+        <input 
+          type="radio" 
+          name="options" 
+          value="answer">
+        <label v-html="answer"></label><br>
+      </template>    
+  
+      <button class="send" type="button">Send</button>    
   </div>
 </template>
 
@@ -40,7 +40,7 @@ export default {
   },
   created() { 
     this.axios
-      .get('https://opentdb.com/api.php?amount=10&category=18&type=boolean')
+      .get('https://opentdb.com/api.php?amount=10&category=30&type=multiple')
       .then((response) => {
         var resp = response.data.results[0];
 
