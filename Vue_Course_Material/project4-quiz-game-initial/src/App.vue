@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>
-      Question 1: Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos aliquam voluptatum minus, quae dolor rem laudantium autem non veritatis nemo.
+    <h1 v-html="question">
+      
     </h1>
 
     <input type="radio" name="options" value="True">
@@ -22,11 +22,20 @@ export default {
   components: {
     
   },
+  data() {
+    return {
+      question: null,
+      correctAnswer: null,
+      incorrectAnswers: null,
+    }
+  },
   created() {
     this.axios
       .get('https://opentdb.com/api.php?amount=10&category=18&type=boolean')
       .then((response) => {
-        console.log("response: ", response.data.results[0].question)
+        this.question = response.data.results[0].question
+        this.correctAnswer = response.data.results[0].correct_answer
+        this.incorrectAnswers = response.data.results[0].incorrect_answer
       })
   }
 }
