@@ -21,6 +21,13 @@ export default {
   name: 'App',
   components: {
     
+  },
+  created() {
+    this.axios
+      .get('https://opentdb.com/api.php?amount=10&category=18&type=boolean')
+      .then((response) => {
+        console.log("response: ", response.data.results[0].question)
+      })
   }
 }
 </script>
@@ -54,4 +61,3 @@ export default {
 
 </style>
 
-// https://opentdb.com/api.php?amount=10&category=18&type=boolean
