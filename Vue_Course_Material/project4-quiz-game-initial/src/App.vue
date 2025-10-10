@@ -1,16 +1,24 @@
-<template v-if="question">
+<template>
   <div>
+    <template v-if="question">
       <h1 v-html="question"></h1>
       
       <template v-for="(answer, index) in answers" :key="index">
         <input 
           type="radio" 
           name="options" 
-          value="answer">
+          :value="answer"
+          v-model="chosen_answer">
         <label v-html="answer"></label><br>
       </template>    
   
-      <button class="send" type="button">Send</button>    
+      <button 
+        class="send" 
+        type="button"
+        @click="submitAnswer()">
+          Send
+      </button>    
+    </template>
   </div>
 </template>
 
@@ -27,6 +35,7 @@ export default {
       question: null,
       correctAnswer: null,
       incorrectAnswers: null,
+      chosen_answer: null,
     }
   },
   computed: {
@@ -37,6 +46,21 @@ export default {
 
       return answers;
     }
+  },
+  methods: {
+    submitAnswer() {
+      if(!this.chosen_answer) {
+        alert("Pick one of the options!")        
+      } else{
+        if(this.chosen_answer == this.correctAnswer)
+        {
+          alert("You nailed it!") 
+        } else {
+          alert("MISS")
+        }
+      }
+    }
+
   },
   created() { 
     this.axios
