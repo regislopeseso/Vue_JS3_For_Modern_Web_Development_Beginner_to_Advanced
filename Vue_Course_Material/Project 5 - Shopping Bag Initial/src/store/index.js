@@ -3,18 +3,19 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    products: [1, 2, 3],
+    products: [],
   },
-  mutations: {
+  mutations: {    
     loadProducts(state, products) {
       state.products = products;
     }
   },
   actions: {
-    loadProducts( commmit ) {    
-      axios.get('https://fakestoreapi.com/products')
+    loadProducts( {commit} ) {    
+      axios
+        .get('https://fakestoreapi.com/products')
         .then(response => {
-          commmit('loadProducts', response.data);
+          commit('loadProducts', response.data);
         })        
     },
   },
