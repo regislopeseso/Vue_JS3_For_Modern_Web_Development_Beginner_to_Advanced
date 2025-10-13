@@ -26,8 +26,9 @@
   
   <script>
   
+
   export default {
-    name: 'HomePage',
+    name: 'Home',
     data() {
       return {
         
