@@ -10,9 +10,10 @@
             :style="{backgroundImage: 'url(' + product.image + ')'}"></div>
           <h4>{{ product.tittle }}</h4>
           <p class="price">US$ {{ product.price.toFixed(2) }}</p>
-          <button>Add to bag</button>
+          <button @click="addToBag(product)">Add to bag</button>
         </div>
       </div>
+      {{ productsInBag.length }}
     </div>
   </template>
   
@@ -28,10 +29,16 @@
     computed: {
       products () {
         return this.$store.state.products;
+      },
+      productsInBag () {
+        return this.$store.state.productsInBag;
       }
     },
     methods: {
-     
+     addToBag(product) {
+      product.quantity = 1;
+      this.$store.dispatch('addToBag', product);
+     }
     }
   }
   </script>
