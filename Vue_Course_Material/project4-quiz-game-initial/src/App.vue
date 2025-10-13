@@ -1,6 +1,8 @@
 <template>
   <div>
     <template v-if="question">
+      <h3>Question {{ countQuestions }} of {{ questions.length }}</h3>
+
       <ScoreBoard :winCount="winCount" :loseCount="loseCount" />
 
       <h1 v-html="question"></h1>
@@ -65,6 +67,8 @@
     },
     data() {
       return {
+        questions: null,
+        countQuestions: null,
         question: null,
         correctAnswer: null,
         incorrectAnswers: null,
@@ -86,7 +90,7 @@
     methods: {
       submitAnswer() {
         if(!this.chosenAnswer) {
-          console.log("Pick one of the options!")
+          alert("Pick one of the options!")
           return;
         }
 
@@ -101,26 +105,49 @@
         this.loseCount++;    
       },
 
-      getNewQuestion() {
+      getQuestions() {
+         this.axios
+        .get('https://opentdb.com/api.php?amount=10&category=30&type=multiple')
+        .then((resp) => {
+          this.countQuestions = 1;
+
+          this.answerSubmitted = false;
+          this.chosenAnswer = null;
+          this.question = null;
+
+          this.winCount = 0;
+          this.loseCount = 0;
+
+          this.questions = resp.data.results;         
+          this.question = this.questions[0].question;
+          this.correctAnswer = this.questions[0].correct_answer;
+          this.incorrectAnswers = this.questions[0].incorrect_answers;
+        })
+      },
+
+      getNewQuestion() {              
+        
+        if(this.countQuestions >= this.questions.length)
+        {
+          alert("Retrieving new 10 questions")          
+          this.getQuestions()
+          return;
+        }
+
         this.answerSubmitted = false;
         this.chosenAnswer = null;
         this.question = null;
 
+        this.question = this.questions[this.countQuestions].question;
+        this.correctAnswer = this.questions[this.countQuestions].correct_answer;
+        this.incorrectAnswers = this.questions[this.countQuestions].incorrect_answers;
 
-        this.axios
-        .get('https://opentdb.com/api.php?amount=10&category=30&type=multiple')
-        .then((response) => {
-          var resp = response.data.results[0];
-
-          this.question = resp.question;
-          this.correctAnswer = resp.correct_answer;
-          this.incorrectAnswers = resp.incorrect_answers;
-        })
+        this.countQuestions++;
       },
 
     },
     created() { 
-      this.getNewQuestion()
+      this.getQuestions()
     }
 
   }
