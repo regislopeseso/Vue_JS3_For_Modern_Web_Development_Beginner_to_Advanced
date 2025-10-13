@@ -10,7 +10,21 @@
             :style="{backgroundImage: 'url(' + product.image + ')'}"></div>
           <h4>{{ product.tittle }}</h4>
           <p class="price">US$ {{ product.price.toFixed(2) }}</p>
-          <button @click="addToBag(product)">Add to bag</button>
+
+          <button 
+            v-if="!isInBag(product)"
+            @click="addToBag(product)"
+          >
+            Add to bag
+          </button>
+
+          <button 
+            v-else
+            @click="addToBag(product)"
+            class="remove"
+          >
+            Remove from bag
+          </button>
         </div>
       </div>
       {{ productsInBag.length }}
@@ -38,6 +52,10 @@
      addToBag(product) {
       product.quantity = 1;
       this.$store.dispatch('addToBag', product);
+     },
+
+     isInBag(product) {
+      return this.productsInBag.find(item => item.id == product.id)
      }
     }
   }
