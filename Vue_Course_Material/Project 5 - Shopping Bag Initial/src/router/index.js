@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/HomePage.vue'
 import Basket from '../views/ShoppingBasket.vue'
 
+
 const routes = [
   {
     path: '/',
@@ -13,6 +14,7 @@ const routes = [
     name: 'Basket',
     component: Basket
   },
+
   
 ]
 
