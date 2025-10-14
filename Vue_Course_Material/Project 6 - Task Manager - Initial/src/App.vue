@@ -4,56 +4,14 @@
   import Filter from './components/Filter.vue';
   import ModalWindow from './components/modal/ModalWindow.vue';
   import AddTaskModal from './components/modal/AddTaskModal.vue';
+  import { useTasksStore } from './stores/tasksStore.js';
+
+  const store = useTasksStore();
 
   // ref for primitives: numbers, strings, booleans, etc.
   const appName = ref("My new task manager");
 
-  // reactive for arras and objects
-  let tasks = reactive([
-      {
-        id: 1,
-        name: "Website design",
-        description: "Define the style guide, branding and create the webdesign on Figma.",
-        completed: true
-      },
-      {
-        id: 2,
-        name: "Website development",
-        description: "Develop the portfolio website using Vue JS.",
-        completed: false
-      },
-      {
-        id: 3,
-        name: "Hosting and infrastructure",
-        description: "Define hosting, domain and infrastructure for the portfolio website.",
-        completed: false
-      },
-      {
-        id: 4,
-        name: "Composition API",
-        description: "Learn how to use the composition API and how it compares to the options API.",
-        completed: true
-      },
-      {
-        id: 5,
-        name: "Pinia",
-        description: "Learn how to setup a store using Pinia.",
-        completed: true
-      },
-      {
-        id: 6,
-        name: "Groceries",
-        description: "Buy rice, apples and potatos.",
-        completed: false
-      },
-      {
-        id: 7,
-        name: "Bank account",
-        description: "Open a bank account for my freelance business.",
-        completed: false
-      }
-  ]);
-
+  
   let newTask = reactive({completed: false});
 
   let filterBy = ref("")
@@ -63,20 +21,20 @@
   const filteredTasks = computed(() => {
     switch(filterBy.value) {
       case 'todo':
-          return tasks.filter(task => !task.completed)
+          return store.tasks.filter(task => !task.completed)
           break;
       case 'done':
-          return tasks.filter(task => task.completed)
+          return store.tasks.filter(task => task.completed)
           break;
       default:
-        return tasks;
+        return store.tasks;
     }
   })
 
   function addTask(){
     if(newTask.name && newTask.description){
-      newTask.id = Math.max(...tasks.map(task => task.id)) + 1; 
-      tasks.push(newTask);
+      newTask.id = Math.max(...store.tasks.map(task => task.id)) + 1; 
+      store.tasks.push(newTask);
       newTask = {completed: false};
      
       return;
@@ -86,7 +44,7 @@
   }
 
   function toggleCompleted(id) {
-    tasks.forEach(task => {
+    store.tasks.forEach(task => {
       if(task.id == id) {
         task.completed = !task.completed;
       }
