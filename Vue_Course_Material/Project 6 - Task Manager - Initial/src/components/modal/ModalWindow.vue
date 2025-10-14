@@ -13,10 +13,9 @@
       <ModalCloseButton 
         @click="$emit('closePopup')"
       />
-  
-      <div class="form">     
-        Your popup content goes here 
-      </div>
+      
+      <slot></slot>
+      
     </div>
   </div>
 </template>

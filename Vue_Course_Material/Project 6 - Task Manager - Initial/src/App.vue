@@ -2,7 +2,8 @@
   import { ref, reactive, computed } from 'vue';
   import Task from './components/Tasks.vue';
   import Filter from './components/Filter.vue';
-  import ModalWindow from './components/ModalWindow.vue';
+  import ModalWindow from './components/modal/ModalWindow.vue';
+  import AddTaskModal from './components/modal/AddTaskModal.vue';
 
   // ref for primitives: numbers, strings, booleans, etc.
   const appName = ref("My new task manager");
@@ -134,33 +135,14 @@
       />           
     </div>
 
-    <div class="add-task">
-      <h3>Add a new task</h3>
-      <input 
-        type="text" 
-        name="title" 
-        placeholder="Enter a title..."
-        v-model="newTask.name"
-      >
-      <br />
-      <textarea 
-        name="description" 
-        rows="4" 
-        placeholder="Enter a description..." 
-        v-model="newTask.description"
-      />
-      <br />
-      <button 
-        class="btn gray"
-        @click="addTask"  
-      >Add Task</button>
-
-    </div>
+   
 
     <ModalWindow 
       @closePopup="modalIsActive = false"
       v-if="modalIsActive"
-    />
+    >
+      <AddTaskModal /> 
+    </ModalWindow>
   </main>
   
    
