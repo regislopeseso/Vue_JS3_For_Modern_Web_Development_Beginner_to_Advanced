@@ -32,7 +32,7 @@
             <span class="amount">US$ {{ (product.price * product.quantity).toFixed(2) }}</span>
           </div>
         </div>
-        <div class="grand-total"> Grand Total: US$ 22.30</div>
+        <div class="grand-total"> Grand Total: US$ {{ orderTotal() }}</div>
       </template>
 
       <template v-else>
@@ -47,7 +47,17 @@
 
   export default {
   name: 'Basket',
-  methods: {},
+  methods: {
+    orderTotal() {
+      var total = 0;
+
+      this.productsInBag.forEach(product => {
+        total += product.price * product.quantity
+      })
+      
+      return total.toFixed(2);
+    }
+  },
   computed: mapState([
     'productsInBag'
   ]),
