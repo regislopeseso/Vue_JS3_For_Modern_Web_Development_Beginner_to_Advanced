@@ -4,19 +4,24 @@
 </script>
 
 <template>
-  <div>
+  <div class="task">
     <h3>
-          {{ task.name }}
-        </h3>
-        <p>
-          {{ task.description }}
-        </p>
-        <div class="task-check">
-          <input type="checkbox" :checked="task.completed" />
-          <label>
-            Done
-          </label>
-        </div>
+      Id #{{ task.id  }} - {{ task.name }}
+    </h3>
+
+    <p>
+      {{ task.description }}
+    </p>
+
+    <div class="task-check">
+      <input 
+        type="checkbox" 
+        @click="$emit('toggleCompleted', task.id)"
+        :checked="task.completed" />
+      <label>
+        {{ task.completed ? "Done" : "To-Do"}}
+      </label>
+    </div>
 
   </div>
 </template>
