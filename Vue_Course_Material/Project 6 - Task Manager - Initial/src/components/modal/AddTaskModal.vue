@@ -10,8 +10,7 @@
         <input 
           type="text" 
           name="title" 
-          placeholder="Enter a title..."
-          v-model="newTask.name"
+          placeholder="Enter a title..." 
         >
 
         <br />
@@ -21,16 +20,15 @@
           name="description" 
           rows="4" 
           placeholder="Enter a description..." 
-          v-model="newTask.description"
+          
         />
 
         <br />
 
         <button 
           class="btn gray"
-          @click="addTask"  
         >
           Add Task
         </button>
-      </div>
+  </div>
 </template>

@@ -15,7 +15,6 @@
       />
       
       <slot></slot>
-      
     </div>
   </div>
 </template>
