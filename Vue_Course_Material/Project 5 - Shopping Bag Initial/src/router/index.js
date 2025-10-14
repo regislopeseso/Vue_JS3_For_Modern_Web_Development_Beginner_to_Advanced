@@ -1,6 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 import Home from '../views/Home.vue'
-import Basket from '../views/ShoppingBasket.vue'
+import Basket from '../views/Basket.vue'
 
 
 const routes = [
