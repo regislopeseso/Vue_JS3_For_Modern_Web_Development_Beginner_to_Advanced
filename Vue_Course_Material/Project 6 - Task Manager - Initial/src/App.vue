@@ -10,6 +10,10 @@
 
   // ref for primitives: numbers, strings, booleans, etc.
   const appName = ref("My new task manager");
+
+  store.$subscribe((mutation, state) => {
+    localStorage.setItem('tasks', JSON.stringify(state.tasks))
+  })
 </script>
 
 
