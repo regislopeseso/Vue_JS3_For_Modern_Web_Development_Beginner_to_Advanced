@@ -50,9 +50,9 @@
 
     <div class="tasks">
       <Task 
-        v-for="(task, index) in store.filteredTasks" 
+        v-for="task in store.filteredTasks" 
         :task="task"
-        :key="index"
+        :key="task.id"
       />           
     </div>
 
