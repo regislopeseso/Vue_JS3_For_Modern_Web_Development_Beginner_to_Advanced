@@ -66,12 +66,14 @@ export const useTasksStore = defineStore('tasks', () => {
     }
   })
 
-  function addTask(){
+  function addTask(newTask){
   if(newTask.name && newTask.description){
     newTask.id = Math.max(...tasks.map(task => task.id)) + 1; 
-    tasks.push(newTask);
-    newTask = {completed: false};
     
+    tasks.push(newTask);    
+
+    closeModal();
+
     return;
   }
   
@@ -86,7 +88,14 @@ export const useTasksStore = defineStore('tasks', () => {
     })
   }
 
+  let modalIsActive = ref(false);
+  function openModal() {
+    modalIsActive.value = true;
+  }
+  function closeModal() {
+    modalIsActive.value = false;
+  }
  
 
-  return {tasks, filterBy, setFilter, filteredTasks, addTask, toggleCompleted}
+  return {tasks, filterBy, setFilter, filteredTasks, addTask, toggleCompleted, modalIsActive, openModal, closeModal}
 })

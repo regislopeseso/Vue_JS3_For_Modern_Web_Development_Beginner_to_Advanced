@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, reactive, computed } from 'vue';
+  import { ref } from 'vue';
   import Task from './components/Tasks.vue';
   import Filter from './components/Filter.vue';
   import ModalWindow from './components/modal/ModalWindow.vue';
@@ -10,19 +10,6 @@
 
   // ref for primitives: numbers, strings, booleans, etc.
   const appName = ref("My new task manager");
-
-  
-  let newTask = reactive({completed: false});
-
- 
-
-  let modalIsActive = ref(false);
-
-  
-
-
-
-
 </script>
 
 
@@ -39,7 +26,7 @@
       <div class="header-side">
         <button 
           class="btn secondary"
-          @click="modalIsActive=true"
+          @click="store.openModal()"
         >
           + Add Task
         </button>
@@ -59,8 +46,7 @@
    
 
     <ModalWindow 
-      @closePopup="modalIsActive = false"
-      v-if="modalIsActive"
+      v-if="store.modalIsActive"
     >
       <AddTaskModal /> 
     </ModalWindow>

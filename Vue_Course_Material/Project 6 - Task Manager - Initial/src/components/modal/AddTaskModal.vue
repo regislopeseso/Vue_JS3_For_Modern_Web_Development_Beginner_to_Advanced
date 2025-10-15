@@ -1,5 +1,11 @@
 <script setup>
+  import { reactive } from 'vue'
+  
+  import { useTasksStore } from '@/stores/tasksStore.js';
+  
+  const store = useTasksStore();
 
+  let newTask = reactive({completed: false});
 </script>
 
 <template>
@@ -11,6 +17,7 @@
           type="text" 
           name="title" 
           placeholder="Enter a title..." 
+          v-model="newTask.name"
         >
 
         <br />
@@ -19,14 +26,15 @@
         <textarea 
           name="description" 
           rows="4" 
-          placeholder="Enter a description..." 
-          
+          placeholder="Enter a description..."
+          v-model="newTask.description"
         />
 
         <br />
 
         <button 
           class="btn gray"
+          @click="store.addTask(newTask)"
         >
           Add Task
         </button>

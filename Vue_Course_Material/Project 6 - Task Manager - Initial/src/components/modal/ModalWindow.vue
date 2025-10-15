@@ -1,6 +1,8 @@
 <script setup>
-  import ModalCloseButton from './ModalCloseButton.vue';
+  import { useTasksStore } from '@/stores/tasksStore.js';
+  const store = useTasksStore();
 
+  import ModalCloseButton from './ModalCloseButton.vue';
 </script>
 
 <template>
@@ -11,7 +13,7 @@
   >  
     <div class="inner">      
       <ModalCloseButton 
-        @click="$emit('closePopup')"
+        @click="store.closeModal()"
       />
       
       <slot></slot>
