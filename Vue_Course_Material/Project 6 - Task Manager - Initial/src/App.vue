@@ -4,7 +4,7 @@
   import Filter from './components/Filter.vue';
   import ModalWindow from './components/modal/ModalWindow.vue';
   import AddTaskModal from './components/modal/AddTaskModal.vue';
-  import { useTasksStore } from './stores/tasksStore.js';
+  import { useTasksStore } from '@/stores/tasksStore.js';
 
   const store = useTasksStore();
 
@@ -14,46 +14,13 @@
   
   let newTask = reactive({completed: false});
 
-  let filterBy = ref("")
+ 
 
   let modalIsActive = ref(false);
 
-  const filteredTasks = computed(() => {
-    switch(filterBy.value) {
-      case 'todo':
-          return store.tasks.filter(task => !task.completed)
-          break;
-      case 'done':
-          return store.tasks.filter(task => task.completed)
-          break;
-      default:
-        return store.tasks;
-    }
-  })
+  
 
-  function addTask(){
-    if(newTask.name && newTask.description){
-      newTask.id = Math.max(...store.tasks.map(task => task.id)) + 1; 
-      store.tasks.push(newTask);
-      newTask = {completed: false};
-     
-      return;
-    }
-    
-    alert("Please enter the title and description for the task!")
-  }
 
-  function toggleCompleted(id) {
-    store.tasks.forEach(task => {
-      if(task.id == id) {
-        task.completed = !task.completed;
-      }
-    })
-  }
-
-  function setFilter(value) {
-    filterBy.value = value;
-  }
 
 
 </script>
@@ -79,15 +46,11 @@
       </div>
     </div>
     
-    <Filter 
-     @setFilter="setFilter"  
-      :filterBy="filterBy"
-    />
+    <Filter />
 
     <div class="tasks">
       <Task 
-        @toggleCompleted="toggleCompleted"
-        v-for="(task, index) in filteredTasks" 
+        v-for="(task, index) in store.filteredTasks" 
         :task="task"
         :key="index"
       />           

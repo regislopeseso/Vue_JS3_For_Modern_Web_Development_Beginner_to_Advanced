@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reactive } from 'vue'
+import { reactive, ref, computed } from 'vue'
 
 export const useTasksStore = defineStore('tasks', () => {
   // reactive for arras and objects
@@ -47,7 +47,46 @@ export const useTasksStore = defineStore('tasks', () => {
         completed: false
       }
   ]);
+
+  let filterBy = ref("")
+
+   
+  function setFilter(value) {
+    filterBy.value = value;
+  }
+
+  const filteredTasks = computed(() => {
+    switch(filterBy.value) {
+      case 'todo':
+          return tasks.filter(task => !task.completed)          
+      case 'done':
+          return tasks.filter(task => task.completed)          
+      default:
+        return tasks;
+    }
+  })
+
+  function addTask(){
+  if(newTask.name && newTask.description){
+    newTask.id = Math.max(...tasks.map(task => task.id)) + 1; 
+    tasks.push(newTask);
+    newTask = {completed: false};
+    
+    return;
+  }
+  
+  alert("Please enter the title and description for the task!")
+  }
+
+  function toggleCompleted(id) {
+    tasks.forEach(task => {
+      if(task.id == id) {
+        task.completed = !task.completed;
+      }
+    })
+  }
+
  
 
-  return {tasks}
+  return {tasks, filterBy, setFilter, filteredTasks, addTask, toggleCompleted}
 })
